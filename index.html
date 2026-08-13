@@ -603,7 +603,7 @@
   });
 
   // "фейковые" пины-чипы
-  document.querySelectorAll('.chip:not(.chip-wide)').forEach(chip=>{
+  document.querySelectorAll('.chip').forEach(chip=>{
     const pop=document.createElement('span');
     pop.className='chip-pop';
     pop.textContent='Я знаю, что хочется кликнуть, но оно не работает';
