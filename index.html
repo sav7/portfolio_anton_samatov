@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Антон Саматов — Senior Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3ead9;
+    --bg-panel:#eee2cd;
+    --ink:#1c1710;
+    --ink-2:#4f4536;
+    --ink-3:#8a7c65;
+    --line:#ddcfb6;
+    --line-hi:#cbb897;
+    --accent:#005fd6;
+    --accent-soft:rgba(0,95,214,.08);
+    --metric:#1c1710;
+    --metric-accent:#005fd6;
+    --supply:#2f7d6e;
+    --demand:#bd5836;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    transition:background .4s ease,color .4s ease;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 32px}
+  @media(max-width:560px){.wrap{padding:0 20px}}
+
+  /* ---------- masthead ---------- */
+  header{padding:96px 0 0}
+  @media(max-width:560px){header{padding:64px 0 0}}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:24px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:400;
+    font-size:clamp(44px,8vw,82px);line-height:1;letter-spacing:-.025em;
+    color:var(--ink);margin-bottom:22px;white-space:nowrap;
+  }
+  @media(max-width:480px){h1{white-space:normal;font-size:44px}}
+  .tagline{
+    font-family:'Fraunces',serif;font-weight:300;font-style:italic;
+    font-size:clamp(19px,3.2vw,24px);line-height:1.3;color:var(--ink-2);
+    max-width:600px;margin-bottom:30px;letter-spacing:-.01em;
+  }
+  .tagline b{font-style:normal;font-weight:500;color:var(--ink)}
+
+  /* contacts top */
+  .contacts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:30px}
+  .contact{
+    display:flex;align-items:center;gap:8px;padding:14px 20px 14px 0;margin-right:20px;
+    font-size:14px;color:var(--ink-2);text-decoration:none;position:relative;
+    transition:color .2s;
+  }
+  .contact:not(:last-child){border-right:1px solid var(--line);padding-right:20px}
+  .contact:hover{color:var(--accent)}
+  .contact svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;flex-shrink:0}
+  .contact .lbl{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+  @media(max-width:560px){
+    .contacts{flex-direction:column}
+    .contact{border-right:none!important;border-bottom:1px solid var(--line);width:100%;padding:11px 0;margin-right:0}
+    .contact:last-child{border-bottom:none}
+  }
+
+  /* chips — lente separator between about and cases */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;
+    padding:6px 13px;border:1px solid var(--line-hi);border-radius:100px;color:var(--ink-2);
+  }
+  .chip-wide{
+    flex-basis:100%;text-align:center;padding:11px 13px;border-color:var(--accent);
+    color:var(--accent);background:var(--accent-soft);letter-spacing:.03em;
+  }
+
+  /* ---------- section ---------- */
+  section{padding:64px 0 0}
+  .sec-tight{padding-top:20px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-3);letter-spacing:.1em}
+  .sec-title{font-family:'Fraunces',serif;font-weight:500;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-2)}
+  .sec-rule{height:1px;flex:1;background:var(--line)}
+  .sec-hint{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--ink-3);margin-top:14px;letter-spacing:-.01em}
+
+  /* ---------- case registry (table) ---------- */
+  .registry{border-top:1px solid var(--ink);margin-top:28px}
+  .case{border-bottom:1px solid var(--line)}
+  .case-row{
+    display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;
+    padding:26px 4px;cursor:pointer;position:relative;transition:background .2s;
+  }
+  .case-row:hover{background:var(--accent-soft)}
+  .case-main{display:flex;flex-direction:column;gap:5px}
+  .case-name{
+    font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,4.2vw,36px);
+    line-height:1;letter-spacing:-.02em;color:var(--ink);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .ext{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.01em;
+    color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:4px;
+    border-bottom:1px solid transparent;transition:border-color .2s;font-weight:400;
+  }
+  .ext:hover{border-color:var(--accent)}
+  .ext.dead{color:var(--ink-3);pointer-events:none}
+  .case-disc{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-3);letter-spacing:.02em}
+  /* always-visible case summary */
+  .case-summary{padding:0 4px 24px;max-width:720px}
+  .case-summary .line{display:flex;gap:12px;padding:7px 0;font-size:15px;line-height:1.55}
+  .case-summary .line .tag{
+    flex-shrink:0;width:76px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-3);padding-top:4px;
+  }
+  .case-summary .line .val{color:var(--ink-2)}
+  .case-summary .line .val b{color:var(--ink);font-weight:600}
+  .case-summary .line.insight .tag{color:var(--accent)}
+  .case-summary .line.insight .val{color:var(--ink)}
+  .more-hint{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--accent);
+    padding:2px 4px 0;display:inline-flex;align-items:center;gap:9px;cursor:pointer;transition:opacity .2s;
+  }
+  .more-hint:hover{opacity:.65}
+  .mh-plus{
+    width:20px;height:20px;flex-shrink:0;border:1px solid var(--accent);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
+  }
+  @media(max-width:560px){
+    .case-summary .line{flex-direction:column;gap:2px}
+    .case-summary .line .tag{width:auto;padding-top:0}
+  }
+  .case-head-metric{text-align:right;padding-top:4px;min-width:96px}
+  .case-head-metric .n{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:23px;color:var(--metric-accent);line-height:1;letter-spacing:-.01em}
+  .case-head-metric .k{font-size:11px;color:var(--ink-3);margin-top:5px;line-height:1.3}
+  .case-toggle{
+    position:absolute;right:4px;top:30px;width:18px;height:18px;flex-shrink:0;
+    display:none;
+  }
+  /* expand indicator */
+  .exp-mark{
+    justify-self:end;align-self:center;
+    width:32px;height:32px;border:1px solid var(--accent);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--accent);
+    transition:transform .3s,background .2s;line-height:1;user-select:none;
+  }
+  .case-row:hover .exp-mark{background:var(--accent-soft)}
+  .case.open .exp-mark{transform:rotate(45deg)}
+
+  /* expanded body */
+  .case-body{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .35s ease;
+  }
+  .case-body-inner{overflow:hidden}
+  .case.open .case-body{grid-template-rows:1fr}
+  .case-content{padding:2px 4px 30px;max-width:680px}
+  .cb{margin-bottom:18px}
+  .cb:last-child{margin-bottom:0}
+  .cb .h{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+  .cb p{font-size:15.5px;color:var(--ink-2);line-height:1.6}
+  .cb p b{color:var(--ink);font-weight:600}
+
+  /* metrics strip inside case */
+  .m-strip{display:flex;flex-wrap:wrap;gap:0;margin-top:22px;border-top:1px solid var(--line)}
+  .m-cell{padding:16px 26px 14px 0;margin-right:26px;border-right:1px solid var(--line)}
+  .m-cell:last-child{border-right:none;margin-right:0;padding-right:0}
+  .m-cell .n{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:26px;color:var(--metric-accent);line-height:1;letter-spacing:-.01em}
+  .m-cell .n.ink{color:var(--metric)}
+  .m-cell .k{font-size:12px;color:var(--ink-3);margin-top:7px;line-height:1.35;max-width:150px}
+  @media(max-width:560px){
+    .m-strip{flex-direction:column;gap:0}
+    .m-cell{border-right:none;border-bottom:1px solid var(--line);margin-right:0;padding:14px 0;width:100%}
+    .m-cell:last-child{border-bottom:none}
+  }
+
+  /* supply-demand inside taketools */
+  .market{
+    margin-top:22px;padding:20px 22px;border:1px solid var(--line);border-radius:2px;
+    background:var(--bg-panel);
+    display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;
+  }
+  .mside .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+  .mside .v{font-size:13px;color:var(--ink-2)}
+  .mside.s .lbl{color:var(--supply)}
+  .mside.d{text-align:right}
+  .mside.d .lbl{color:var(--demand)}
+  .mflow{position:relative;width:70px;height:28px;flex-shrink:0}
+  .mline{position:absolute;left:5px;right:5px;height:1.5px}
+  .mline::after{content:"";position:absolute;top:50%;width:6px;height:6px;border-top:1.5px solid;border-right:1.5px solid}
+  .mline.td{top:9px;background:linear-gradient(90deg,var(--supply),var(--demand))}
+  .mline.td::after{right:-1px;transform:translateY(-50%) rotate(45deg);color:var(--demand)}
+  .mline.ts{bottom:9px;background:linear-gradient(90deg,var(--supply),var(--demand))}
+  .mline.ts::after{left:-1px;transform:translateY(-50%) rotate(-135deg);color:var(--supply)}
+  @media(max-width:520px){
+    .market{grid-template-columns:1fr;gap:12px}
+    .mside.d{text-align:left}
+    .mflow{transform:rotate(90deg);margin:6px auto}
+  }
+
+  /* ---------- profile ---------- */
+  .prof{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink);margin-top:28px}
+  @media(max-width:640px){.prof{grid-template-columns:1fr}}
+  .prof-col{padding:26px 0}
+  .prof-col:first-child{border-right:1px solid var(--line);padding-right:32px}
+  .prof-col:last-child{padding-left:32px}
+  @media(max-width:640px){
+    .prof-col:first-child{border-right:none;border-bottom:1px solid var(--line);padding-right:0}
+    .prof-col:last-child{padding-left:0}
+  }
+  .prof-col h4{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+  .prow{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .prow:last-child{border-bottom:none}
+  .prow .k{color:var(--ink-2)}
+  .prow .v{color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12.5px;text-align:right}
+  .sk{display:flex;flex-wrap:wrap;gap:7px}
+  .sk span{border:1px solid var(--line-hi);border-radius:2px;padding:6px 11px;font-size:13px;color:var(--ink-2)}
+  .sk span.a{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+  /* ---------- intro (tagline + facts) ---------- */
+  .intro{display:grid;grid-template-columns:1.2fr 0.8fr;gap:44px;align-items:start;margin-bottom:28px}
+  @media(max-width:720px){.intro{grid-template-columns:1fr;gap:28px}}
+  .intro-main .tagline{margin-bottom:0}
+  .intro-facts{padding-top:6px}
+  .intro-facts .prow{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .intro-facts .prow:first-child{padding-top:0}
+  .intro-facts .prow:last-child{border-bottom:none}
+  .intro-facts .prow .k{color:var(--ink-3);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:3px;white-space:nowrap}
+  .intro-facts .prow .v{color:var(--ink);font-size:13px;text-align:right}
+
+  /* ---------- offbeat ---------- */
+  .offbeat{margin-top:28px;border-top:1px solid var(--line)}
+  .offbeat summary{
+    list-style:none;cursor:pointer;padding:20px 4px;display:flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+    transition:color .2s;user-select:none;
+  }
+  .offbeat summary::-webkit-details-marker{display:none}
+  .offbeat summary:hover{color:var(--ink)}
+  .offbeat summary .pl{width:18px;height:18px;flex-shrink:0;position:relative}
+  .offbeat summary .pl::before,.offbeat summary .pl::after{content:"";position:absolute;background:var(--accent);border-radius:1px}
+  .offbeat summary .pl::before{top:50%;left:2px;right:2px;height:1.5px;transform:translateY(-50%)}
+  .offbeat summary .pl::after{left:50%;top:2px;bottom:2px;width:1.5px;transform:translateX(-50%);transition:opacity .3s}
+  .offbeat[open] summary .pl::after{opacity:0}
+  .offbeat summary .hint{margin-left:auto;color:var(--ink-3);text-transform:none;letter-spacing:0;font-size:11px}
+  .fact{display:flex;gap:15px;padding:15px 4px;border-bottom:1px solid var(--line)}
+  .fact:last-child{border-bottom:none;padding-bottom:24px}
+  .fact .ic{flex-shrink:0;width:30px;height:30px;border:1px solid var(--line-hi);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .fact .t{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+  .fact .t b{color:var(--ink);font-weight:600}
+
+  /* ---------- bottom bar ---------- */
+  .botbar{
+    margin-top:72px;border-top:1px solid var(--ink);
+    padding:32px 0 80px;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;
+  }
+  .loc{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-2);letter-spacing:.02em}
+  .loc svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.6}
+  .cta{
+    font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:19px;color:var(--ink);
+    display:flex;align-items:center;gap:10px;letter-spacing:-.01em;
+  }
+  .cta a{color:var(--accent);text-decoration:none;border:1px solid var(--accent);border-radius:100px;
+    padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:13px;font-style:normal;transition:background .2s}
+  .cta a:hover{background:var(--accent-soft)}
+  @media(max-width:560px){.botbar{flex-direction:column;align-items:flex-start}.cta{font-size:17px}}
+
+  /* reveal */
+  .rv{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow rv">Product Portfolio · 2026</div>
+  <h1 class="rv">Антон Саматов</h1>
+
+  <div class="contacts rv">
+    <a class="contact" href="mailto:samatovanton7@gmail.com">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      <span class="lbl">samatovanton7@gmail.com</span>
+    </a>
+    <a class="contact" href="https://t.me/samatov7" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="m22 3-9.5 18-3-8-8-3z"/><path d="M22 3 11 14"/></svg>
+      <span class="lbl">@samatov7</span>
+    </a>
+    <span class="contact" style="cursor:default">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <span class="lbl">Тбилиси, GE</span>
+    </span>
+  </div>
+
+  <div class="intro rv">
+    <div class="intro-main">
+      <p class="tagline">Senior Product Manager.<br>Запускаю и масштабирую продукты<br>от discovery до рынка. Опираюсь на данные и использую AI-инструменты для ускорения продуктовой работы: сам прототипирую и собираю MVP для проверки гипотез.</p>
+    </div>
+    <div class="intro-facts">
+      <div class="prow"><span class="k">Опыт</span><span class="v">5+ лет</span></div>
+      <div class="prow"><span class="k">Треки</span><span class="v">B2C · B2B · B2B2C</span></div>
+      <div class="prow"><span class="k">Языки</span><span class="v">Русский · Английский<br>Турецкий · Испанский</span></div>
+      <div class="prow"><span class="k">Рынки</span><span class="v">APAC · MENA · LATAM · US<br>Europe · CIS · Юг Африки</span></div>
+    </div>
+  </div>
+
+  <div class="chips rv">
+    <span class="chip">B2C</span>
+    <span class="chip">B2B2C</span>
+    <span class="chip">AI / ML продукты</span>
+    <span class="chip">Монетизация</span>
+    <span class="chip">Unit-экономика</span>
+    <span class="chip">Marketplace-механики</span>
+    <span class="chip">A/B-тесты</span>
+    <span class="chip">CustDev</span>
+    <span class="chip">CJM</span>
+    <span class="chip">Retention / LTV / CAC</span>
+    <span class="chip">Roadmap · приоритизация</span>
+    <span class="chip">Продуктовая аналитика</span>
+    <span class="chip">Vibe-coding</span>
+    <span class="chip chip-wide">Закрываю полный продуктовый цикл: Discovery → Delivery → Support</span>
+  </div>
+</header>
+
+<!-- ============ CASES ============ -->
+<section>
+  <div class="sec-head rv">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Кейсы</span>
+    <span class="sec-rule"></span>
+  </div>
+  <p class="sec-hint rv">Проблематика, решение и итог показаны в предпросмотре. Нажмите на кейс, чтобы увидеть детальный разбор.</p>
+
+  <div class="registry">
+
+    <!-- taketools -->
+    <div class="case" data-case>
+      <div class="case-row" data-trigger tabindex="0" role="button" aria-expanded="false">
+        <div class="case-main">
+          <div class="case-name">taketools.rent
+            <a class="ext" href="https://taketools.rent" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗ taketools.rent</a>
+          </div>
+          <div class="case-disc">Первая на Кавказе P2P площадка аренды инструментов · solo founder</div>
+        </div>
+        <span class="exp-mark">+</span>
+      </div>
+      <div class="case-summary">
+        <div class="line"><span class="tag">Проблема</span><span class="val">На P2P-площадках стороны уходят от комиссии: списываются вне платформы, и после первого контакта их уже не видно.</span></div>
+        <div class="line insight"><span class="tag">Решение</span><span class="val">Механика двойного акцепта с гейтингом контактов: контакты раскрываются взаимно только после подтверждения сделки, обойти площадку нельзя.</span></div>
+        <div class="line"><span class="tag">Итог</span><span class="val">Самостоятельно собрал продукт 0→1 и продал инвестору как готовый бизнес.</span></div>
+        <span class="more-hint" data-trigger tabindex="0" role="button"><span class="mh-plus">+</span>как решал: discovery, монетизация, юр-проверка, что тестировал</span>
+      </div>
+      <div class="case-body"><div class="case-body-inner"><div class="case-content">
+        <div class="cb">
+          <div class="h">Вызов</div>
+          <p>Двойной: смогу ли я, применяя продуктовый опыт, собрать свой продукт и получить из него пользу. Домен для меня на тот момент был новый, поэтому зашёл через глубокий бенчмаркинг: маркетплейсы в СНГ и Европе, Facebook Marketplace (в Грузии популярен), пользовательские паттерны и culture map по регионам.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Почему P2P и почему рынок готов</div>
+          <p>Аренда инструмента как услуга уже существовала, но разрозненно: отдельные прокатные компании и частники на Facebook Marketplace. Единой площадки, связывающей стороны, не было. Первый вопрос, который проверял: почему такого формата до сих пор нет в регионе, если есть спрос и предложение. Считался с региональной спецификой: на Кавказе никто не оставляет заявку на сайте, все звонят или пишут в WhatsApp, это пришлось закладывать в модель.</p>
+        </div>
+        <div class="cb" style="margin-top:20px">
+          <div class="h">Центральный вызов — "чёрный обход"</div>
+          <p>Главная боль подобных площадок: стороны списываются вне платформы и проводят сделку мимо комиссии, что убивает и монетизацию, и удержание. Решение этой проблемы стало ядром продукта.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Как решил — механика двойного акцепта</div>
+          <p>Спроектировал статусную модель сделки с гейтингом контактов: арендатор оставляет заявку на конкретный инструмент и даты, а владелец, в свою очередь, должен подтвердить наличие и доступность. Только после этого контакты сторон взаимно раскрываются. До акцепта ни одна сторона не видит контактов другой, обойти площадку нельзя. Оферта проста: момент акцепта = сделка частично выполнена и зафиксирована платформой. Механику проверил юридически у нескольких юристов по трём юрисдикциям (Грузия, Армения, Азербайджан); для остальных регионов эта механика осталась спроектированной гипотезой — заход на новый рынок будет сводится только к её юридической валидации.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Монетизация</div>
+          <p>Процент с месячного дохода владельца: раз в месяц арендодатель получает инвойс в личный кабинет и на почту. Подписку сознательно отверг: региональная специфика — люди не привыкли к подпискам, тем более к новому сервису с оплатой сходу.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Что тестировал</div>
+          <p>Систему отзывов (как собирать, чтобы охотнее оставляли, как размещать нативно), геймификацию удержания — звания по активности, лидерборд владельцев. Часть механик вывел на прод как гипотезы; геймификация не прижилась. Баланс сторон, фильтрацию по городам/типам, языки (EN + RU как lingua franca + грузинский для стартового региона) — прорабатывал через CustDev и A/B нескольких версий интерфейса.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Результат</div>
+          <p>Запустил рабочий продукт и нашёл покупателя — продал проект инвестору как готовый бизнес (это была изначальная цель).</p>
+        </div>
+        <div class="m-strip">
+          <div class="m-cell"><div class="n">0→1</div><div class="k">Идея → прод → продажа</div></div>
+          <div class="m-cell"><div class="n ink">3</div><div class="k">Юрисдикции</div></div>
+          <div class="m-cell"><div class="n ink">30+</div><div class="k">CustDev интервью</div></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- Sila Vetra -->
+    <div class="case" data-case>
+      <div class="case-row" data-trigger tabindex="0" role="button" aria-expanded="false">
+        <div class="case-main">
+          <div class="case-name">Сила ветра
+            <a class="ext" href="https://silavetra.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗ silavetra.com</a>
+          </div>
+          <div class="case-disc">Крупнейшая яхтенная школа и парусное коммьюнити · Senior PM</div>
+        </div>
+        <span class="exp-mark">+</span>
+      </div>
+      <div class="case-summary">
+        <div class="line"><span class="tag">Проблема</span><span class="val">Обучающая платформа на устаревшем конструкторе (только десктоп, записи уроков не доступны в офлайне), конверсия в заявку и в продолжение обучения проседает.</span></div>
+        <div class="line insight"><span class="tag">Решение</span><span class="val">Своя платформа + курс с двойной функцией: обучал и одновременно прогревал спрос на платную практику: яхтенная практика продавалась с помощью курса теории.</span></div>
+        <div class="line"><span class="tag">Итог</span><span class="val">+50% конверсии в заявку, 2-е место в мире по числу активных студентов (официальная статистика ISSA).</span></div>
+        <span class="more-hint" data-trigger tabindex="0" role="button"><span class="mh-plus">+</span>как решал: два трека, методолог, воронка, фейк-доры</span>
+      </div>
+      <div class="case-body"><div class="case-body-inner"><div class="case-content">
+        <div class="cb">
+          <div class="h">Контекст</div>
+          <p>Крупнейшее парусное коммьюнити и яхтенная школа. Когда пришёл, обучающая платформа была собрана на негибком и устаревшем конструкторе: курс комфортно проходился только с десктопа, записи уроков не были доступны в офлайне, новые форматы обучения конструктор не тянул. Упиралось и в клиентскую сторону, и в бизнесовую.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Два трека, работавших в связке</div>
+          <p>Вёл параллельно разработку своей платформы и путь клиента до покупки. Гипотеза: оба трека должны усиливать друг друга. Как: CJM путь стал проще и нативнее, а клиент ещё до покупки видел демки новой платформы с приятным UI и понимал, к чему идёт.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Трек 1 — своя платформа</div>
+          <p>Разобрал опции (пересобрать на современном конструкторе / готовое решение с рынка / своё). Выбрали своё, я лидировал полный цикл разработки от архитектуры до текстового наполнения. Снял ограничения конструктора: курс стал кроссплатформенным, записи уроков — прямо с платформы, регистрация проще. Отдельно нанял в команду методолога и пересобрал логику курса: онбординг в платформу и в курс, структура блоков с чёткими итогами, понятный трек теоретической подготовки студента к практике.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Двойная функция курса</div>
+          <p>Заложил в курс теории две функции: очевидную — обучение и подготовка к практике, и скрытую — прогрев спроса на саму практику. Курс закрывал возражения "нужна ли мне практика" прямо по ходу прохождения, и к финалу студент приходил с уже сформированным намерением её купить. Так снижалась нагрузка на маркетинг и продажи: последующие этапы во многом продавались за счёт грамотно выстроенных предыдущих.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Трек 2 — путь клиента до покупки</div>
+          <p>Владел всей воронкой от открытия сайта до paywall: брошенная корзина, retention, рефералки. Вёл воронки в двух контурах: внутри и вне РФ, с разной аудиторией и разным paywall. Инструменты: CustDev, A/B с фейк-дорами (проверял, какие типы курсов и CTA лучше вовлекают — "яхтинг в городе", тренировки, теория, теория+практика, трансатлантика "почиллить с опытным капитаном" и тд), анализ тепловых карт. Путь стал короче: меньше кликов до корзины, человек не уставал до оплаты и лучше понимал ценность.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Результат</div>
+          <p>Конверсия в заявку на обучение выросла, churn rate на корзине и paywall снизился. Проект вышел на 2-е место в мире по числу активных студентов (официальная статистика ISSA). Результат командный, за мной были продуктовые решения и оркестрация.</p>
+        </div>
+        <div class="m-strip">
+          <div class="m-cell"><div class="n">+50%</div><div class="k">Конверсия в заявку на обучение</div></div>
+          <div class="m-cell"><div class="n ink">#2</div><div class="k">В мире по обученным (ISSA)</div></div>
+          <div class="m-cell"><div class="n ink">2</div><div class="k">Воронки на paywall: РФ и Зарубеж</div></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- Deeplay -->
+    <div class="case" data-case>
+      <div class="case-row" data-trigger tabindex="0" role="button" aria-expanded="false">
+        <div class="case-main">
+          <div class="case-name">Deeplay
+            <a class="ext" href="https://deeplay.io" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗ deeplay.io</a>
+          </div>
+          <div class="case-disc">AI-аналитика данных для игровых платформ; ядро: computer vision и big data processing · Senior PM</div>
+        </div>
+        <span class="exp-mark">+</span>
+      </div>
+      <div class="case-summary">
+        <div class="line"><span class="tag">Контекст</span><span class="val">AI-продукты для игровых платформ (карточные игры): роботы-аниматоры и алгоритмы, подстраивающие опыт под игрока, в реальном времени.</span></div>
+        <div class="line insight"><span class="tag">Роль</span><span class="val">Веду несколько кросс-функциональных команд, discovery → delivery, высокий темп проверки гипотез из-за B2B-специфики и еженедельного релизного цикла.</span></div>
+        <div class="line"><span class="tag">Масштаб</span><span class="val">4 команды, ~40 человек, платформы с миллионами пользователей.</span></div>
+        <span class="more-hint" data-trigger tabindex="0" role="button"><span class="mh-plus">+</span>подробнее: направления в работе, как устроен AI-слой</span>
+      </div>
+      <div class="case-body"><div class="case-body-inner"><div class="case-content">
+        <div class="cb">
+          <div class="h">Контекст</div>
+          <p>Компания строит AI-решения для интеллектуальных карточных игр на технологиях ML, computer vision и data science. Модель B2B2C: решения идут через бизнес-заказчиков и доходят до конечных игроков. AI здесь — обвязка, которая делает игровой продукт живым и разнообразным.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Направления в работе</div>
+          <p>Мы создаем активность и вовлечённость на платформе, удерживаем баланс сил, чтобы игроки дольше оставались в игре. AI-алгоритмы, анализирующие игровую ситуацию и подстраивающие опыт под игрока, улучшают игровой результат и удержание. Всё работает в реальном времени на гео-распределённой инфраструктуре, на платформах с миллионами пользователей.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Роль</div>
+          <p>Веду несколько кросс-функциональных команд, отвечаю за discovery → delivery, приоритизацию и рост. Высокий темп проверки гипотез из-за B2B-специфики: много заказчиков, каждый хочет быстро проверить своё.</p>
+        </div>
+        <div class="m-strip">
+          <div class="m-cell"><div class="n ink">4</div><div class="k">Кросс-функциональных команды</div></div>
+          <div class="m-cell"><div class="n ink">~40</div><div class="k">Человек суммарно<br>(от QA до DevOps)</div></div>
+          <div class="m-cell"><div class="n ink">Realtime</div><div class="k">AI-powered решения<br>в реальном времени</div></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- Ludreamity -->
+    <div class="case" data-case>
+      <div class="case-row" data-trigger tabindex="0" role="button" aria-expanded="false">
+        <div class="case-main">
+          <div class="case-name">Ludreamity
+            <span class="ext dead">● закрыт</span>
+          </div>
+          <div class="case-disc">iOS-трекер сна с обратной связью о собранных данных · Product Manager</div>
+        </div>
+        <span class="exp-mark">+</span>
+      </div>
+      <div class="case-summary">
+        <div class="line"><span class="tag">Проблема</span><span class="val">Трекеров сна тысячи, сам трекинг уже не ценность — его даёт любой базовый браслет или родные приложения по типу "Health".</span></div>
+        <div class="line insight"><span class="tag">Решение</span><span class="val">Монетизация не на данных, а на их интерпретации: трекинг бесплатно, платный слой — подсказчик "что с этим делать". CustDev подтвердил готовность платить именно за это.</span></div>
+        <div class="line"><span class="tag">Итог</span><span class="val">Запуск в AppStore, подписочная модель собрана и подтверждена с нуля.</span></div>
+        <span class="more-hint" data-trigger tabindex="0" role="button"><span class="mh-plus">+</span>подробнее: концепция, discovery, примечание о судьбе проекта</span>
+      </div>
+      <div class="case-body"><div class="case-body-inner"><div class="case-content">
+        <div class="cb">
+          <div class="h">Позиционирование</div>
+          <p>Трекеров сна на рынке тысячи, сам трекинг давно не ценность, его даёт любой доступный браслет или родное "Health" в iOS. Инсайт: ценность не в данных, а в том, что с ними делать дальше. На тот момент в доступном сегменте это почти никто не давал (только премиум вроде WHOOP на AI).</p>
+        </div>
+        <div class="cb">
+          <div class="h">Концепция</div>
+          <p>Трекинг — бесплатно (работает автоматически через часы, кросс-чек с родным "Health" для точности). Платный слой — подсказчик: мягкие сигналы по типу "обрати внимание, глубокий сон ниже нормы, стоит показаться специалисту". Tone of voice сознательно выбран не медицинский и не диагностический: понимали регуляторную границу (телемедицину под рынок США рассматривали, но legal-барьер высокий, в реализацию при мне не пошло).</p>
+        </div>
+        <div class="cb">
+          <div class="h">Что делал</div>
+          <p>CustDev по разным рынкам (портрет потребителя отличается от региона к региону) + большой бенчмаркинг моделей монетизации конкурентов. Гипотеза, подтверждённая CustDev: за сырые данные платить не готовы, за интерпретацию "что с этим делать" — да. На этом построил монетизацию: подписка на месяц, год и lifetime.</p>
+        </div>
+        <div class="cb">
+          <div class="h">Результат</div>
+          <p>Запуск в AppStore, платящая модель собрана и подтверждена с нуля через CustDev-итерации.</p>
+        </div>
+        <div class="cb">
+          <div class="h" style="color:var(--ink-3)">Примечание</div>
+          <p style="font-size:14px;color:var(--ink-3)">При моём участии (2022–23) продукт был трекером сна с подсказчиком — стартап на ангельских инвестициях. Спустя какое-то время после моего ухода проект закрылся; позже фаундер восстановил приложение с другой концепцией. Кейс описывает период моего участия.</p>
+        </div>
+      </div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ OFFBEAT ============ -->
+<section class="sec-tight">
+  <details class="offbeat rv">
+    <summary>
+      <span class="pl" aria-hidden="true"></span>
+      Немного вне резюме
+      <span class="hint">развернуть</span>
+    </summary>
+    <div class="fact">
+      <div class="ic" aria-hidden="true">🍺</div>
+      <div class="t">В IT пришёл из реального сектора — был свой бар и пивоварня. Юнит-экономику и работу на метриках набил там, на живом бизнесе, а потом перенёс в IT.</div>
+    </div>
+    <div class="fact">
+      <div class="ic" aria-hidden="true">🎮</div>
+      <div class="t">Ещё в школьные и студенческие годы любил залезть вглубь игр ради лучшего опыта: делал патчи на FIFA и PES как для себя, так и на продажу, отрисовывал стадионы в Blender. Гейминг для меня немного больше, чем вечерняя активность.</div>
+    </div>
+    <div class="fact">
+      <div class="ic" aria-hidden="true">⚙️</div>
+      <div class="t">Регулярно собираю работающие продукты с AI: так появился taketools и еще несколько небольших проектов. Использую AI для ускорения разработки, но за результат отвечаю сам.</div>
+    </div>
+    <div class="fact">
+      <div class="ic" aria-hidden="true">🧭</div>
+      <div class="t">Перед выходом на новые рынки люблю изучить их специфику не только онлайн на открытых данных, но и очно. Например, перед заходом текущей компании на юг Африки (Малави, Мозамбик и соседи) съездил лично оценить обстановку.</div>
+    </div>
+    <div class="fact">
+      <div class="ic" aria-hidden="true">🌍</div>
+      <div class="t">Переношу подходы между очень разными доменами и культурами: от Кавказа до LATAM, APAC и MENA. Юнит-экономику из бара, паттерны из одного рынка в другой.</div>
+    </div>
+  </details>
+</section>
+
+<div class="botbar rv">
+  <div class="cta">Благодарю за внимание к деталям. Буду рад встрече на следующем этапе.</div>
+</div>
+
+</div>
+
+<script>
+  // case expand
+  document.querySelectorAll('[data-trigger]').forEach(tr=>{
+    const toggle=()=>{
+      const c=tr.closest('[data-case]');
+      const open=c.classList.toggle('open');
+      tr.setAttribute('aria-expanded',open);
+    };
+    tr.addEventListener('click',toggle);
+    tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+  });
+</script>
+</body>
+</html>
