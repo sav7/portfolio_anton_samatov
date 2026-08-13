@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Антон Саматов — Senior Product Manager</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,6 +87,24 @@
   .chip-wide{
     flex-basis:100%;text-align:center;padding:11px 13px;border-color:var(--accent);
     color:var(--accent);background:var(--accent-soft);letter-spacing:.03em;
+  }
+  .chip{position:relative;cursor:pointer;user-select:none;transition:background .2s,border-color .2s}
+  .chip:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .chip-pop{
+    position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);
+    background:var(--ink);color:var(--bg);font-family:'Inter',system-ui,sans-serif;font-size:12.5px;
+    line-height:1.4;padding:9px 13px;border-radius:8px;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:5;
+  }
+  .chip-pop::after{
+    content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:var(--ink);
+  }
+  .chip.pop-open .chip-pop{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  @media(max-width:560px){
+    .chip-pop{white-space:normal;max-width:220px;left:0;transform:translateX(0) translateY(4px)}
+    .chip-pop::after{left:16px;transform:translateX(0)}
+    .chip.pop-open .chip-pop{transform:translateX(0) translateY(0)}
   }
 
   /* ---------- section ---------- */
@@ -376,7 +399,7 @@
         </div>
         <div class="cb">
           <div class="h">Как решил — механика двойного акцепта</div>
-          <p>Спроектировал статусную модель сделки с гейтингом контактов: арендатор оставляет заявку на конкретный инструмент и даты, а владелец, в свою очередь, должен подтвердить наличие и доступность. Только после этого контакты сторон взаимно раскрываются. До акцепта ни одна сторона не видит контактов другой, обойти площадку нельзя. Оферта проста: момент акцепта = сделка частично выполнена и зафиксирована платформой. Механику проверил юридически у нескольких юристов по трём юрисдикциям (Грузия, Армения, Азербайджан); для остальных регионов эта механика осталась спроектированной гипотезой — заход на новый рынок будет сводится только к её юридической валидации.</p>
+          <p>Спроектировал статусную модель сделки с гейтингом контактов: арендатор оставляет заявку на конкретный инструмент и даты, а владелец, в свою очередь, должен подтвердить наличие и доступность. Только после этого контакты сторон взаимно раскрываются. До акцепта ни одна сторона не видит контактов другой, обойти площадку нельзя. Оферта проста: момент акцепта = сделка частично выполнена и зафиксирована платформой. Механику проверил юридически у нескольких юристов по трём юрисдикциям (Грузия, Армения, Азербайджан); для остальных регионов эта механика осталась спроектированной гипотезой — заход на новый рынок будет сводиться только к её юридической валидации.</p>
         </div>
         <div class="cb">
           <div class="h">Монетизация</div>
@@ -577,6 +600,28 @@
     };
     tr.addEventListener('click',toggle);
     tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+  });
+
+  // "фейковые" пины-чипы
+  document.querySelectorAll('.chip:not(.chip-wide)').forEach(chip=>{
+    const pop=document.createElement('span');
+    pop.className='chip-pop';
+    pop.textContent='Я знаю, что хочется кликнуть, но оно не работает';
+    chip.appendChild(pop);
+    chip.setAttribute('tabindex','0');
+    chip.setAttribute('role','button');
+    chip.addEventListener('click',e=>{
+      e.stopPropagation();
+      const wasOpen=chip.classList.contains('pop-open');
+      document.querySelectorAll('.chip.pop-open').forEach(c=>c.classList.remove('pop-open'));
+      if(!wasOpen)chip.classList.add('pop-open');
+    });
+    chip.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();chip.click()}
+    });
+  });
+  document.addEventListener('click',()=>{
+    document.querySelectorAll('.chip.pop-open').forEach(c=>c.classList.remove('pop-open'));
   });
 </script>
 </body>
